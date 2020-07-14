@@ -24,7 +24,7 @@ RUN wget --quiet https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12
   && mv terraform /usr/bin \
   && rm terraform_0.12.28_linux_amd64.zip
 
-
+RUN echo "\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ " >> ~/.bashrc
 
 # RUN yum -y install gcc openssl-devel bzip2-devel libffi-devel make \
 #     && cd /usr/src \
