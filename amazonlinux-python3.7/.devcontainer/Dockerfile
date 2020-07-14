@@ -34,8 +34,6 @@ RUN yum -y install gcc openssl-devel bzip2-devel libffi-devel make \
 RUN export PYTHON_BIN_PATH="$(python3 -m site --user-base)/bin" && \
     export PATH="$PATH:$PYTHON_BIN_PATH"
 
-RUN yum -y install pipenv
-
 RUN cd /usr/local/bin && \
     ln -s python3.7 python3 && \
     ln -s python3 python && \
