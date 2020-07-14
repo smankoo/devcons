@@ -24,27 +24,4 @@ RUN wget --quiet https://releases.hashicorp.com/terraform/0.12.28/terraform_0.12
   && mv terraform /usr/bin \
   && rm terraform_0.12.28_linux_amd64.zip
 
-RUN echo "\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ " >> ~/.bashrc
-
-# RUN yum -y install gcc openssl-devel bzip2-devel libffi-devel make \
-#     && cd /usr/src \
-#     && wget https://www.python.org/ftp/python/3.7.7/Python-3.7.7.tgz \
-#     && tar xzf Python-3.7.7.tgz \
-#     && cd Python-3.7.7 \
-#     && ./configure --enable-optimizations \
-#     && make altinstall \
-#     && rm /usr/src/Python-3.7.7.tgz
-
-# RUN export PYTHON_BIN_PATH="$(python3 -m site --user-base)/bin" && \
-#     export PATH="$PATH:$PYTHON_BIN_PATH"
-
-# RUN yum -y install pipenv
-
-
-
-# RUN cd /usr/local/bin && \
-#     ln -s python3.7 python3 && \
-#     ln -s python3 python && \
-#     ln -s pip3.7 pip3 && \
-#     ln -s pip3 pip 
-    
+RUN echo "export PS1=\"\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
