@@ -5,7 +5,7 @@
 #-------------------------------------------------------------------------------------------------------------
 
 # Note: You can use any Debian/Ubuntu based image you want. 
-FROM smankoo/devcon-amazonlinux-docker
+FROM amazonlinux
 
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
@@ -20,7 +20,7 @@ ARG USER_GID=$USER_UID
 # ARG DOCKER_SCRIPT_SHA="dde4c419e3a8d9ed15f8d11d366fc7ce29817e451b949d5d7c41432d86ae3b59"
 ARG DOCKER_SCRIPT_SHA="dev-mode"
 
-COPY ../../script-library/*.sh /tmp/
+COPY *.sh /tmp/
 RUN ln -s /tmp/docker-redhat.sh /tmp/docker-setup.sh
 
 ARG ENABLE_NONROOT_DOCKER="true"
