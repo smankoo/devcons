@@ -56,6 +56,9 @@ RUN curl -sSL $HOMEBREW_SCRIPT_SOURCE -o /tmp/homebrew-setup.sh && \
     chmod 755 /tmp/homebrew-setup.sh && \
     su - ${USERNAME} -c '/tmp/homebrew-setup.sh'
 
+# install commonly used python modules
+RUN su - ${USERNAME} -c 'pip3 install --user wheel pipenv bs4 requests keyring keyrings.alt boto3'
+
 # Clean up
 RUN rm /tmp/* \
     && yum -y autoremove \
