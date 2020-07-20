@@ -2,7 +2,8 @@
 
 # Install prerequisites
 sudo yum -y groupinstall 'Development Tools'
-sudo yum -y install curl file git libxcrypt-compat 
+sudo yum -y install curl file git
+sudo yum -y install libxcrypt-compat || true
 
 # Install homebrew
 git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
