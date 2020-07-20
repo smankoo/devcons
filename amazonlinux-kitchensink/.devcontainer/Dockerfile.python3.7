@@ -1,9 +1,3 @@
-
-#-------------------------------------------------------------------------------------------------------------
-# Copyright (c) Microsoft Corporation. All rights reserved.
-# Licensed under the MIT License. See https://go.microsoft.com/fwlink/?linkid=2090316 for license information.
-#-------------------------------------------------------------------------------------------------------------
-
 # Note: You can use any Debian/Ubuntu based image you want. 
 FROM amazonlinux
 
@@ -15,23 +9,20 @@ ARG USERNAME=vscode
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
-# Docker script args, location, and expected SHA - SHA generated on release
-# ARG DOCKER_SCRIPT_SOURCE="https://raw.githubusercontent.com/microsoft/vscode-dev-containers/v0.128.0/script-library/docker-debian.sh"
-# ARG DOCKER_SCRIPT_SHA="dde4c419e3a8d9ed15f8d11d366fc7ce29817e451b949d5d7c41432d86ae3b59"
-ARG DOCKER_SCRIPT_SHA="dev-mode"
-
-COPY *.sh /tmp/
-RUN ln -s /tmp/docker-redhat.sh /tmp/docker-setup.sh
-
 ARG ENABLE_NONROOT_DOCKER="true"
 ARG SOURCE_SOCKET=/var/run/docker-host.sock
 ARG TARGET_SOCKET=/var/run/docker.sock
+
+ARG DOCKER_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/docker-redhat.sh"
+ARG GIT_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/makegit-redhat.sh"
+ARG python37_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/python3.7-redhat.sh"
+ARG terraform_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/terraform.sh"
 
 RUN yum -y update \
     && export DEBIAN_FRONTEND=noninteractive \
     # Verify common dependencies and utilities are installed
     && yum -y install deltarpm \
-    && yum -y install net-tools redhat-lsb-core dialog git openssh-clients curl less  procps 2>&1 \
+    && yum -y install net-tools dialog git openssh-clients curl less  procps 2>&1 \
     #
     # Create a non-root user to use if not already available - see https://aka.ms/vscode-remote/containers/non-root-user.
     && if [ $(getent passwd $USERNAME) ]; then \
@@ -51,12 +42,14 @@ RUN yum -y update \
         && chmod 0440 /etc/sudoers.d/$USERNAME; \
     fi \
     #
-    # Use Docker script from script library to set things up
-    # && curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh \
-    && ([ "${DOCKER_SCRIPT_SHA}" = "dev-mode" ] || (echo "${DOCKER_SCRIPT_SHA} */tmp/docker-setup.sh" | sha256sum -c -)) \
+    && curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh \
+    && curl -sSL $GIT_SCRIPT_SOURCE -o /tmp/git-setup.sh \
+    && curl -sSL $python37_SCRIPT_SOURCE -o /tmp/python37-setup.sh \
+    && curl -sSL $terraform_SCRIPT_SOURCE -o /tmp/terraform-setup.sh \
     && /bin/bash /tmp/docker-setup.sh "${ENABLE_NONROOT_DOCKER}" "${SOURCE_SOCKET}" "${TARGET_SOCKET}" "${USERNAME}" \
     && /bin/bash /tmp/makegit-redhat.sh \
     && rm /tmp/* \
+    && echo "export PS1=\"\[\e]0;\u@\h: \w\a\]\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> /home/${USERNAME}/.bashrc \
     #
     # Clean up
     #
@@ -69,6 +62,6 @@ RUN yum -y update \
 # the Docker socket if "overrideCommand": false is set in devcontainer.json. 
 # The script will also execute CMD if you need to alter startup behaviors.
 
-RUN echo "export PS1=\"\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
+RUN echo "export PS1=\"\[\e]0;\u@\h: \w\a\]\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc
 ENTRYPOINT [ "/usr/local/share/docker-init.sh" ]
 CMD [ "sleep", "infinity" ]
