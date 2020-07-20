@@ -16,7 +16,7 @@ ARG USER_GID=$USER_UID
 RUN yum -y update \
     # Verify common dependencies and utilities are installed
     && yum -y install deltarpm \
-    && yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip python3 python3-venv python3-pip awscli 2>&1
+    && yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip python3 python3-venv python3-pip which awscli 2>&1
 
 RUN pip3 install pipenv 
     # Create a non-root user to use if not already available - see https://aka.ms/vscode-remote/containers/non-root-user.
