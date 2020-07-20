@@ -14,9 +14,7 @@ ARG SOURCE_SOCKET=/var/run/docker-host.sock
 ARG TARGET_SOCKET=/var/run/docker.sock
 
 ARG DOCKER_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/docker-redhat.sh"
-ARG GIT_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/makegit-redhat.sh"
 ARG TERRAFORM_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/terraform.sh"
-ARG HOMEBREW_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/homebrew.sh"
 
 
 RUN curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh && \
