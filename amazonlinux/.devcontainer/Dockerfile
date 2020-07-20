@@ -1,1 +1,1 @@
-FROM smankoo/devcon-amazonlinux:latest
+FROM smankoo/devcon-amazonlinux:kitchensink
