@@ -11,7 +11,7 @@ export CI=1
 eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 # Set environment
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) >> .bash_profile
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv) >> .profile
+echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >> .bash_profile
+echo "eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)" >> .profile
 
 brew install gcc
