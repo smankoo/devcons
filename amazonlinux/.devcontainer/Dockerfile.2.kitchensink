@@ -61,6 +61,7 @@ RUN curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh \
     && rm -rf /var/cache/yum 
     
 RUN curl -sSL $HOMEBREW_SCRIPT_SOURCE -o /tmp/homebrew-setup.sh && \
+    chmod 755 /tmp/homebrew-setup.sh \
     su -c '/tmp/homebrew-setup.sh' - ${USERNAME}
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access to 
 # the Docker socket if "overrideCommand": false is set in devcontainer.json. 
