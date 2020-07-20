@@ -15,7 +15,7 @@ ARG TARGET_SOCKET=/var/run/docker.sock
 
 ARG DOCKER_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/docker-redhat.sh"
 ARG GIT_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/makegit-redhat.sh"
-ARG terraform_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/terraform.sh"
+ARG TERRAFORM_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/terraform.sh"
 ARG HOMEBREW_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/homebrew.sh"
 
 
@@ -44,24 +44,24 @@ ARG HOMEBREW_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/ma
 #     && echo "export PS1=\"\[\e]0;\u@\h: \w\a\]\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> ~/.bashrc \
 #     && echo "export PS1=\"\[\e]0;\u@\h: \w\a\]\${debian_chroot:+(\$debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ \"" >> /home/${USERNAME}/.bashrc
 
-RUN curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh \
-    && curl -sSL $GIT_SCRIPT_SOURCE -o /tmp/git-setup.sh \
-    && curl -sSL $terraform_SCRIPT_SOURCE -o /tmp/terraform-setup.sh \
-    && chmod 755 /tmp/*.sh \
-    && /bin/bash /tmp/docker-setup.sh "${ENABLE_NONROOT_DOCKER}" "${SOURCE_SOCKET}" "${TARGET_SOCKET}" "${USERNAME}" \
-    && /bin/bash /tmp/git-setup.sh \
-    && /bin/bash /tmp/terraform-setup.sh \
-    && rm /tmp/* \
-    #
-    # Clean up
-    #
-    && yum -y autoremove \
-    && yum -y clean all \
-    && rm -rf /var/cache/yum 
+RUN curl -sSL $DOCKER_SCRIPT_SOURCE -o /tmp/docker-setup.sh && \
+    chmod 755 /tmp/docker-setup.sh && \
+    /bin/bash /tmp/docker-setup.sh "${ENABLE_NONROOT_DOCKER}" "${SOURCE_SOCKET}" "${TARGET_SOCKET}" "${USERNAME}"
+
+RUN curl -sSL $TERRAFORM_SCRIPT_SOURCE -o /tmp/terraform-setup.sh && \
+    chmod 755 /tmp/terraform-setup.sh && \
+    /bin/bash /tmp/terraform-setup.sh
 
 RUN curl -sSL $HOMEBREW_SCRIPT_SOURCE -o /tmp/homebrew-setup.sh && \
     chmod 755 /tmp/homebrew-setup.sh && \
     su - ${USERNAME} -c '/tmp/homebrew-setup.sh'
+
+# Clean up
+RUN rm /tmp/* \
+    && yum -y autoremove \
+    && yum -y clean all \
+    && rm -rf /var/cache/yum 
+
 # Setting the ENTRYPOINT to docker-init.sh will configure non-root access to 
 # the Docker socket if "overrideCommand": false is set in devcontainer.json. 
 # The script will also execute CMD if you need to alter startup behaviors.
