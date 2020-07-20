@@ -14,6 +14,7 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 # Install Prerequisites
+yum -y update
 yum -y install deltarpm
 yum -y install  ca-certificates curl gnupg2 dnf net-tools  dialog git openssh-clients curl less  procps 
 
@@ -45,6 +46,7 @@ fi
 curl -fsSL https://download.docker.com/linux/${OSNAME}/gpg > /tmp/docker.gpg && \
 rpm --import /tmp/docker.gpg
 
+yum -y update
 yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-${RHEL_COMPAT_VER}.noarch.rpm
 yum install -y yum-utils device-mapper-persistent-data lvm2
 yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
