@@ -55,8 +55,9 @@ RUN curl -sSL $TERRAFORM_SCRIPT_SOURCE -o /tmp/terraform-setup.sh && \
 # Install Homebrew and AWS SAM CLI
 RUN curl -sSL $HOMEBREW_SCRIPT_SOURCE -o /tmp/homebrew-setup.sh && \
     chmod 755 /tmp/homebrew-setup.sh && \
-    su - ${USERNAME} -c '/tmp/homebrew-setup.sh' && \
-    su - ${USERNAME} -c 'brew tap aws/tap' && \
+    su - ${USERNAME} -c '/tmp/homebrew-setup.sh'
+
+RUN su - ${USERNAME} -c 'brew tap aws/tap' && \
     su - ${USERNAME} -c 'brew install aws-sam-cli'
 
 # install commonly used python modules
