@@ -19,12 +19,12 @@ ARG terraform_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/m
 ARG HOMEBREW_SCRIPT_SOURCE="https://raw.githubusercontent.com/smankoo/devcons/master/script-library/homebrew.sh"
 
 
-RUN yum -y update \
-    # Verify common dependencies and utilities are installed
-    && yum -y install deltarpm \
-    && yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip python3 python3-venv python3-pip awscli 2>&1
+# RUN yum -y update \
+#     # Verify common dependencies and utilities are installed
+#     && yum -y install deltarpm \
+#     && yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip python3 python3-venv python3-pip awscli 2>&1
 
-RUN pip3 install pipenv 
+# RUN pip3 install pipenv 
     # Create a non-root user to use if not already available - see https://aka.ms/vscode-remote/containers/non-root-user.
 # RUN if [ $(getent passwd $USERNAME) ]; then \
 #         # If exists, see if we need to tweak the GID/UID
