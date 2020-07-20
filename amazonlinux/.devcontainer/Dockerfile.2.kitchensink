@@ -58,7 +58,8 @@ RUN curl -sSL $HOMEBREW_SCRIPT_SOURCE -o /tmp/homebrew-setup.sh && \
     su - ${USERNAME} -c '/tmp/homebrew-setup.sh'
 
 # Install AWS SAM CLI
-RUN su - ${USERNAME} -c 'brew tap aws/tap' && \
+RUN yum -y install perl-devel && \
+    su - ${USERNAME} -c 'brew tap aws/tap' && \
     su - ${USERNAME} -c 'brew install aws-sam-cli'
 
 # install commonly used python modules

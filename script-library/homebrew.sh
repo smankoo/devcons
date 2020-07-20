@@ -9,7 +9,11 @@ sudo yum -y install libxcrypt-compat || true
 git clone https://github.com/Homebrew/brew ~/.linuxbrew/Homebrew
 mkdir ~/.linuxbrew/bin
 ln -s ~/.linuxbrew/Homebrew/bin/brew ~/.linuxbrew/bin
+eval $(~/.linuxbrew/bin/brew shellenv)
 
 # Set environment
 echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >> .bash_profile
 echo 'eval $(~/.linuxbrew/bin/brew shellenv)' >> .profile
+
+brew install gcc
+
