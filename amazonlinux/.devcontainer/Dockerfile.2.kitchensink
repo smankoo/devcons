@@ -32,7 +32,10 @@ RUN su - ${USERNAME} -c 'pip3 install --user --upgrade awscli aws-sam-cli'
 RUN su - ${USERNAME} -c 'pip3 install --user --upgrade wheel pipenv bs4 requests keyring keyrings.alt boto3 pylint autopep8'
 
 # Install serverless
-RUN su - ${USERNAME} -c 'curl -o- -L https://slss.io/install | bash'
+RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - && \
+    yum -y install nodejs && \
+    npm install -g serverless
+
 
 # Clean up
 RUN rm /tmp/* \
