@@ -1,0 +1,1 @@
+FROM smankoo/devcon-amazonlinux:kitchensink
