@@ -14,11 +14,12 @@
 	"extensions": [
 		"ms-azuretools.vscode-docker",
 		"esbenp.prettier-vscode",
-		"hashicorp.terraform",
 		"ms-python.python",
 		"shakram02.bash-beautify",
 		"threadheap.serverless-ide-vscode",
-		"redhat.vscode-yaml"
+		"redhat.vscode-yaml",
+		"amazonwebservices.aws-toolkit-vscode",
+		"hashicorp.terraform"
 	],
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],

@@ -1,6 +1,6 @@
 # Note: You can use any Debian/Ubuntu based image you want. 
 FROM smankoo/devcon-amazonlinux:latest
-
+USER root
 # This Dockerfile adds a non-root user with sudo access. Use the "remoteUser"
 # property in devcontainer.json to use it. On Linux, the container user's GID/UIDs
 # will be updated to match your local UID/GID (when using the dockerFile property).
