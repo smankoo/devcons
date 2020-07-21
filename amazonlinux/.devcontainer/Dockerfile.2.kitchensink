@@ -29,7 +29,7 @@ RUN curl -sSL $TERRAFORM_SCRIPT_SOURCE -o /tmp/terraform-setup.sh && \
 RUN su - ${USERNAME} -c 'pip3 install --user --upgrade awscli aws-sam-cli'
 
 # Install commonly used python modules
-RUN su - ${USERNAME} -c 'pip3 install --user --upgrade wheel pipenv bs4 requests keyring keyrings.alt boto3 pylint autopep8'
+RUN su - ${USERNAME} -c 'pip3 install --user --upgrade wheel pipenv bs4 requests keyring keyrings.alt boto3 pylint autopep8 cfn-lint'
 
 # Install serverless
 RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - && \
