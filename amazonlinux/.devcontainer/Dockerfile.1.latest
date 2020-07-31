@@ -13,7 +13,7 @@ RUN curl -sSL $COMMON_SCRIPT_SOURCE -o /tmp/common-redhat.sh && \
 # Verify common dependencies and utilities are installed
 RUN yum -y update && \
     yum -y install deltarpm && \
-    yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip mlocate python3 python3-pip which && \
+    yum -y install net-tools dialog git openssh-clients curl less procps tar sudo wget unzip zip mlocate python3 python3-pip which hostname man && \
     updatedb 2>&1
 
 # Set prompt (copied from Windows WSL Ubuntu)
