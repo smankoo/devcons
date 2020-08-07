@@ -37,6 +37,9 @@ RUN curl -sL https://rpm.nodesource.com/setup_12.x | bash - && \
     npm install -g serverless
 
 
+# Install Heroku
+RUN curl https://cli-assets.heroku.com/install.sh | sh
+
 # Clean up
 RUN rm /tmp/* \
     && yum -y autoremove \
